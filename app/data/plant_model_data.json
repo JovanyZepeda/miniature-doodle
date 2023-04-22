@@ -1,8 +1,10 @@
 {
     "flower_to_leaf_ratio": 0,
     "green_to_green_max_ratio": 0, 
-    "green_color_minumum": 0,
-    "green_color_maximum":0,
+    "leaf_color_minumum": [0,0,0],
+    "leaf_color_maximum":[0,0,0],
+    "flower_color_minumum": [0,0,0],
+    "flower_color_maximum":[0,0,0],
     "does_plant_have_flowers": false,
     "is_plant_healthy": false
   }

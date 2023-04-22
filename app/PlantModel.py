@@ -11,23 +11,29 @@ from matplotlib import colors
 class PlantModel:
     flower_to_leaf_ratio = 0.0
     green_to_green_max_ratio = 0.0
-    green_color_minimum = 0.0
-    green_color_maximum = 0.0
+    leaf_color_minimum = [0.0, 0.0, 0.0]
+    leaf_color_maximum = [0.0, 0.0, 0.0]
+    flower_color_minimum = [0.0, 0.0, 0.0]
+    flower_color_maximum = [0.0, 0.0, 0.0]
     does_plant_have_flowers = False 
     is_plant_healthy = False
 
     def __init__(self,flower_to_leaf_ratio, green_to_green_max_ratio,
-                     green_color_minimum, green_color_maximum,
-                     does_plant_have_flowers, is_plant_healthy):
+                     leaf_color_minimum, leaf_color_maximum,
+                     flower_color_minimum, flower_color_maximum,
+                     does_plant_have_flowers, is_plant_healthy,
+                     ):
         
         self.flower_to_leaf_ratio = flower_to_leaf_ratio
         self.green_to_green_max_ratio =  green_to_green_max_ratio
-        self.green_color_minimum = green_color_minimum
-        self.green_color_maximum = green_color_maximum
+        self.leaf_color_minimum = leaf_color_minimum
+        self.leaf_color_maximum = leaf_color_maximum
+        self.flower_color_minimum = flower_color_minimum
+        self.flower_color_maximum = flower_color_maximum
         self.does_plant_have_flowers = does_plant_have_flowers
         self.is_plant_healthy = is_plant_healthy
 
-    def TakePicture(): #ThisFunction Take a Picture and stores the image in view_1_photos
+    def TakePicture(self): #This Function Take a Picture and stores the image in view_1_photos
         cam_port = 0
         cam = cv.VideoCapture(cam_port)
         result, img = cam.read()
@@ -38,7 +44,7 @@ class PlantModel:
         else:
             print("No Image Detected")
 
-    def ColorSpace(): #This functions plots the RGB color space of the image in view_1_photos
+    def ColorSpace(self): #This functions plots the RGB and HVS color space of the image in view_4(5)_photos
         img = cv.imread("app\data\\view_1_photos\Picture.png")
         rgb_img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         hsv_img = cv.cvtColor(rgb_img, cv.COLOR_RGB2HSV)     
@@ -75,18 +81,30 @@ class PlantModel:
         axis2.set_zlabel("Value")
         fig2.savefig("app\data\\view_5_photos\ColorSpace_HSV.png")
 
-        plt.show()
+        #plt.show()
 
-    def ID_Leaves(): #This function reads the image in view_1_photos and Identify the plants leaves 
+    def Set_Ranges_Manual(self): #This function requests the color ranges from the user
+        leaf_max_str = input("Please enter the maximum RGB green value (e.g. 1,45,233) : ")
+        leaf_min_str = input("Please enter the minimum RGB green value (e.g. 1,45,233) : ")
+        flower_max_str = input("Please enter the maximum RGB flower value (e.g. 1,45,233) : ")
+        flower_min_str = input("Please enter the minimum RGB flower value (e.g. 1,45,233) : ")
+
+        self.leaf_color_maximum = list(map(float,leaf_max_str.split(',')))
+        self.leaf_color_minimum = list(map(float,leaf_min_str.split(',')))
+        self.flower_color_maximum = list(map(float,flower_max_str.split(',')))
+        self.flower_color_minimum = list(map(float,flower_min_str.split(',')))
+
+    def ID_Leaves(self): #This function reads the image in view_1_photos and Identify the plants leaves 
         img = cv.imread("app\data\\view_1_photos\Picture.png")
         new_img = np.zeros(img.shape, img.dtype)
+        mask = cv.inRange(img, self.leaf_color_maximum, self.leaf_color_minimum)
 
         cv.imshow('Original Image', img)
         cv.imshow('New Image', new_img)
         cv.imwrite("app\data\\view_2_photos\Leaves.png", img)
         cv.waitKey(0)
 
-    def ID_Flowers(): #This function read the image in view_1_photos and Identify the plants flowers
+    def ID_Flowers(self): #This function read the image in view_1_photos and Identify the plants flowers
         img = cv.imread("app\data\\view_1_photos\Picture.png")
         new_img = np.zeros(img.shape, img.dtype)
 
@@ -95,11 +113,16 @@ class PlantModel:
         cv.imwrite("app\data\\view_3_photos\Flowers.png", img)
         cv.waitKey(0)
     
-    TakePicture()
-    ColorSpace()
-    #ColorSpace_HSV()
 
 
-#myplant = PlantModel(1,2,3,4,True,False)
+#Main script
+myplant = PlantModel(1,2,[0,0,0],[0,0,0],[0,0,0],[0,0,0],True,False)
+print(myplant.leaf_color_maximum, myplant.leaf_color_minimum, 
+      myplant.flower_color_maximum, myplant.flower_color_minimum)
+myplant.TakePicture()
+myplant.ColorSpace()
+myplant.Set_Ranges_Manual()
+print(myplant.leaf_color_maximum, myplant.leaf_color_minimum, 
+      myplant.flower_color_maximum, myplant.flower_color_minimum)
 
 #print(myplant.does_plant_have_flowers)
