@@ -8,3 +8,7 @@ This simple project is an example repo for Python projects.
 ---------------
 
 If you want to learn more about ``setup.py`` files, check out `this repository <https://github.com/kennethreitz/setup.py>`_.
+
+![System Design - MVC](https://github.com/username/repository/blob/master/img/octocat.png)
+
+![GUI Block Diagram](https://github.com/username/repository/blob/master/img/octocat.png)
