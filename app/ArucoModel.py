@@ -1,8 +1,8 @@
 """ 
 ArucoModle will handle calculating PO
 """
+from cv2 import *
 
-arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_50)
-arucoParams = cv2.aruco.DetectorParameters_create()
-(corners, ids, rejected) = cv2.aruco.detectMarkers(image, arucoDict,
-	parameters=arucoParams)
+inputImage = cv.Mat # store image from training folder
+
+cv.
