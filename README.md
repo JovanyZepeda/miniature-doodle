@@ -9,6 +9,10 @@ This simple project is an example repo for Python projects.
 
 If you want to learn more about ``setup.py`` files, check out `this repository <https://github.com/kennethreitz/setup.py>`_.
 
-![System Design - MVC](https://github.com/username/repository/blob/master/img/octocat.png)
+# System Overview
+The chosen system design is the MVC or Model-View-Controller
 
-![GUI Block Diagram](https://github.com/username/repository/blob/master/img/octocat.png)
+![System Design - MVC](https://github.com/JovanyZepeda/miniature-doodle/blob/master/docs/block_diagram_flower_growth_tracker-System_Overview.drawio.png)
+
+
+![GUI Block Diagram](https://github.com/JovanyZepeda/miniature-doodle/blob/master/docs/block_diagram_flower_growth_tracker-view_GUI.drawio.png)
