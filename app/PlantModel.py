@@ -1,3 +1,5 @@
+import cv2 as cv
+import numpy as np
 import sys 
 
 class PlantModel:
@@ -19,8 +21,37 @@ class PlantModel:
         self.does_plant_have_flowers = does_plant_have_flowers
         self.is_plant_healthy = is_plant_healthy
 
-    def TakePicture():
-        
+    def TakePicture(): #ThisFunction Take a Picture and stores the image in view_1_photos
+        cam_port = 0
+        cam = cv.VideoCapture(cam_port)
+        result, img = cam.read()
+        if result:
+            cv.imshow("Display window", img)
+            cv.imwrite("app\data\\view_1_photos\Picture.png", img)
+            cv.waitKey(0)
+        else:
+            print("No Image Detected")
+
+    def ID_Leaves(): #This function reads the image in view_1_photos and Identify the plants leaves 
+        img = cv.imread("app\data\\view_1_photos\Picture.png")
+        new_img = np.zeros(img.shape, img.dtype)
+
+        cv.imshow('Original Image', img)
+        cv.imshow('New Image', new_img)
+        cv.imwrite("app\data\\view_2_photos\Leaves.png", img)
+        cv.waitKey(0)
+
+    def ID_Flowers(): #This function read the image in view_1_photos and Identify the plants flowers
+        img = cv.imread("app\data\\view_1_photos\Picture.png")
+        new_img = np.zeros(img.shape, img.dtype)
+
+        cv.imshow('Original Image', img)
+        cv.imshow('New Image', new_img)
+        cv.imwrite("app\data\\view_3_photos\Flowers.png", img)
+        cv.waitKey(0)
+    
+    TakePicture()
+
 
 #myplant = PlantModel(1,2,3,4,True,False)
 
