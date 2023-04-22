@@ -3,7 +3,9 @@ This module is in charge of generating tkinter gui
 """
 import tkinter as tk
 from tkinter import ttk
+from tkinter import *
 from PIL import ImageTk, Image
+import os
 
 class View(tk.Frame):
     """ View Module Class """
@@ -18,6 +20,17 @@ class View(tk.Frame):
         plant_height = 0
         flower_to_leaf_ratio = 0.0
         green_to_green_max_ratio = 0.0
+
+        # =============== Photo Access ============#
+        current_path = os.path.dirname(__file__)
+        photo_vew_1_dir = r"C:\Users\Jovan\Documents\GitHub\miniature-doodle\app\data\view_1_photos\Picture.png"
+        photo_vew_2_dir = r"C:\Users\Jovan\Documents\GitHub\miniature-doodle\app\data\view_2_photos\dummy_image.png"
+        photo_vew_3_dir = r"C:\Users\Jovan\Documents\GitHub\miniature-doodle\app\data\view_3_photos\dummy_image.png"
+        
+        # Store a reference to th image
+        self.img_1 = ImageTk.PhotoImage(Image.open(photo_vew_1_dir).resize((200,200)))
+        self.img_2 = ImageTk.PhotoImage(Image.open(photo_vew_2_dir).resize((200,200)))
+        self.img_3 = ImageTk.PhotoImage(Image.open(photo_vew_3_dir).resize((200,200)))
 
         test_str = "TEST"
         # Define a sytle object that is applied globally
@@ -39,9 +52,9 @@ class View(tk.Frame):
         bar_2 = ttk.Progressbar(master=frame_1, orient="horizontal", length=50,mode="determinate", maximum=1, value=green_to_green_max_ratio )
 
         # Create widgets for photo view
-        photo_view_1 = ttk.Label(master=frame_3,text=test_str, width=50 ,padding=3)
-        photo_view_2 = ttk.Label(master=frame_2, text=test_str, width=50, padding=3)
-        photo_view_3 = ttk.Label(master=frame_2,text=test_str, width=50, padding=3)
+        photo_view_1 = ttk.Label(master=frame_3,image=self.img_1, text=test_str, compound="image" , width=10 ,padding=3)
+        photo_view_2 = ttk.Label(master=frame_2,image=self.img_2, text=test_str, compound="image" , width=10, padding=3)
+        photo_view_3 = ttk.Label(master=frame_2,image=self.img_3, text=test_str, compound="image", width=10, padding=3)
 
         # ========== Frame Layout ============#
         # GRID of parent = 3 rows and 2 columns
@@ -75,3 +88,5 @@ if __name__ == "__main__":
     
     myapp = View(root)
     myapp.mainloop() 
+
+
