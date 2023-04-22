@@ -2,7 +2,7 @@ import cv2 as cv
 import numpy as np
 import sys 
 
-#RGB Plot imports 
+#RGB/HSV Plot imports 
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
@@ -38,41 +38,42 @@ class PlantModel:
         else:
             print("No Image Detected")
 
-    def ColorSpace_RGB(): #This functions plots the RGB color space of the image in view_1_photos
+    def ColorSpace(): #This functions plots the RGB color space of the image in view_1_photos
         img = cv.imread("app\data\\view_1_photos\Picture.png")
-        img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
-        r,g,b = cv.split(img)
-        fig = plt.figure()
-        axis = fig.add_subplot(1, 1, 1, projection="3d")
+        rgb_img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+        hsv_img = cv.cvtColor(rgb_img, cv.COLOR_RGB2HSV)     
 
-        pixel_colors = img.reshape((np.shape(img)[0]*np.shape(img)[1], 3))
+        #RGB Color Space
+        r,g,b = cv.split(rgb_img)
+        fig1 = plt.figure()
+        axis1 = fig1.add_subplot(1, 1, 1, projection="3d")
+
+        pixel_colors = rgb_img.reshape((np.shape(rgb_img)[0]*np.shape(rgb_img)[1], 3))
         norm = colors.Normalize(vmin=-1.,vmax=1.)
         norm.autoscale(pixel_colors)
         pixel_colors = norm(pixel_colors).tolist()
 
-        axis.scatter(r.flatten(), g.flatten(), b.flatten(), facecolors=pixel_colors, marker=".")
-        axis.set_xlabel("Red")
-        axis.set_ylabel("Green")
-        axis.set_zlabel("Blue")
-        plt.show()
+        
+        axis1.scatter(r.flatten(), g.flatten(), b.flatten(), facecolors=pixel_colors, marker=".")
+        axis1.set_xlabel("Red")
+        axis1.set_ylabel("Green")
+        axis1.set_zlabel("Blue")
 
-    def ColorSpace_HSV():
-        img = cv.imread("app\data\\view_1_photos\Picture.png")
-        hsv_img = cv.cvtColor(img, cv.COLOR_BGR2HSV)
-
+        #HSV Color Space 
         h, s, v = cv.split(hsv_img)
-        fig = plt.figure()
-        axis = fig.add_subplot(1, 1, 1, projection="3d")
+        fig2 = plt.figure()
+        axis2 = fig2.add_subplot(1, 1, 1, projection="3d")
 
-        pixel_colors = img.reshape((np.shape(img)[0]*np.shape(img)[1], 3))
+        pixel_colors = hsv_img.reshape((np.shape(hsv_img)[0]*np.shape(hsv_img)[1], 3))
         norm = colors.Normalize(vmin=-1.,vmax=1.)
         norm.autoscale(pixel_colors)
         pixel_colors = norm(pixel_colors).tolist()
 
-        axis.scatter(h.flatten(), s.flatten(), v.flatten(), facecolors=pixel_colors, marker=".")
-        axis.set_xlabel("Hue")
-        axis.set_ylabel("Saturation")
-        axis.set_zlabel("Value")
+        axis2.scatter(h.flatten(), s.flatten(), v.flatten(), facecolors=pixel_colors, marker=".")
+        axis2.set_xlabel("Hue")
+        axis2.set_ylabel("Saturation")
+        axis2.set_zlabel("Value")
+
         plt.show()
 
     def ID_Leaves(): #This function reads the image in view_1_photos and Identify the plants leaves 
@@ -94,8 +95,8 @@ class PlantModel:
         cv.waitKey(0)
     
     TakePicture()
-    ColorSpace_RGB()
-    ColorSpace_HSV()
+    ColorSpace()
+    #ColorSpace_HSV()
 
 
 #myplant = PlantModel(1,2,3,4,True,False)
