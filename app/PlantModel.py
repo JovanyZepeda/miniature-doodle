@@ -11,10 +11,10 @@ from matplotlib import colors
 class PlantModel:
     flower_to_leaf_ratio = 0.0
     green_to_green_max_ratio = 0.0
-    leaf_color_minimum = [0.0, 0.0, 0.0]
-    leaf_color_maximum = [0.0, 0.0, 0.0]
-    flower_color_minimum = [0.0, 0.0, 0.0]
-    flower_color_maximum = [0.0, 0.0, 0.0]
+    leaf_color_minimum = [0, 0, 0]
+    leaf_color_maximum = [0, 0, 0]
+    flower_color_minimum = [0, 0, 0]
+    flower_color_maximum = [0, 0, 0]
     does_plant_have_flowers = False 
     is_plant_healthy = False
 
@@ -82,47 +82,73 @@ class PlantModel:
         fig2.savefig("app\data\\view_5_photos\ColorSpace_HSV.png")
 
         #plt.show()
+        plt.clf()
+        plt.close()
 
     def Set_Ranges_Manual(self): #This function requests the color ranges from the user
-        leaf_max_str = input("Please enter the maximum RGB green value (e.g. 1,45,233) : ")
-        leaf_min_str = input("Please enter the minimum RGB green value (e.g. 1,45,233) : ")
-        flower_max_str = input("Please enter the maximum RGB flower value (e.g. 1,45,233) : ")
-        flower_min_str = input("Please enter the minimum RGB flower value (e.g. 1,45,233) : ")
+        #leaf_max_str = input("Please enter the maximum RGB green value (e.g. 1,45,233) : ")
+        #leaf_min_str = input("Please enter the minimum RGB green value (e.g. 1,45,233) : ")
+        #flower_max_str = input("Please enter the maximum RGB flower value (e.g. 1,45,233) : ")
+        #flower_min_str = input("Please enter the minimum RGB flower value (e.g. 1,45,233) : ")
 
-        self.leaf_color_maximum = list(map(float,leaf_max_str.split(',')))
-        self.leaf_color_minimum = list(map(float,leaf_min_str.split(',')))
-        self.flower_color_maximum = list(map(float,flower_max_str.split(',')))
-        self.flower_color_minimum = list(map(float,flower_min_str.split(',')))
+        #self.leaf_color_maximum = np.array(map(int,leaf_max_str.split(',')))
+        #self.leaf_color_minimum = np.array(map(int,leaf_min_str.split(',')))
+        #self.flower_color_maximum = list(map(float,flower_max_str.split(',')))
+        #self.flower_color_minimum = list(map(float,flower_min_str.split(',')))
+        self.leaf_color_maximum = (0,40,0)
+        self.leaf_color_minimum = (50,200,255)
+        self.flower_color_maximum = (70,40,0)
+        self.flower_color_minimum = (255,255,255)
 
     def ID_Leaves(self): #This function reads the image in view_1_photos and Identify the plants leaves 
         img = cv.imread("app\data\\view_1_photos\Picture.png")
-        new_img = np.zeros(img.shape, img.dtype)
-        mask = cv.inRange(img, self.leaf_color_maximum, self.leaf_color_minimum)
+        rgb_img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+        hsv_img = cv.cvtColor(rgb_img, cv.COLOR_RGB2HSV) 
+        #new_img = np.zeros(img.shape, img.dtype)
+        mask = cv.inRange(hsv_img, self.leaf_color_maximum, self.leaf_color_minimum)
+        new_img = cv.bitwise_and(rgb_img, rgb_img, mask=mask)
+        plt.subplot(1, 2, 1)
+        plt.imshow(mask, cmap="gray")
+        plt.subplot(1, 2, 2)
+        plt.imshow(new_img)
 
-        cv.imshow('Original Image', img)
+        plt.show()
+        plt.clf()
+        plt.close()
+
+        cv.imwrite("app\data\\view_2_photos\Leaves.png", cv.cvtColor(new_img, cv.COLOR_BGR2RGB))
+
+        """cv.imshow('Original Image', img)
         cv.imshow('New Image', new_img)
         cv.imwrite("app\data\\view_2_photos\Leaves.png", img)
-        cv.waitKey(0)
+        cv.waitKey(0)"""
 
     def ID_Flowers(self): #This function read the image in view_1_photos and Identify the plants flowers
         img = cv.imread("app\data\\view_1_photos\Picture.png")
-        new_img = np.zeros(img.shape, img.dtype)
+        rgb_img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+        hsv_img = cv.cvtColor(rgb_img, cv.COLOR_RGB2HSV) 
+        #new_img = np.zeros(img.shape, img.dtype)
+        mask = cv.inRange(hsv_img, self.flower_color_maximum, self.flower_color_minimum)
+        new_img = cv.bitwise_and(rgb_img, rgb_img, mask=mask)
+        plt.subplot(1, 2, 1)
+        plt.imshow(mask, cmap="gray")
+        plt.subplot(1, 2, 2)
+        plt.imshow(new_img)
 
-        cv.imshow('Original Image', img)
-        cv.imshow('New Image', new_img)
-        cv.imwrite("app\data\\view_3_photos\Flowers.png", img)
-        cv.waitKey(0)
-    
+        plt.show()
+        plt.clf()
+        plt.close()
+
+        cv.imwrite("app\data\\view_3_photos\Flowers.png", cv.cvtColor(new_img, cv.COLOR_BGR2RGB))
 
 
 #Main script
 myplant = PlantModel(1,2,[0,0,0],[0,0,0],[0,0,0],[0,0,0],True,False)
-print(myplant.leaf_color_maximum, myplant.leaf_color_minimum, 
-      myplant.flower_color_maximum, myplant.flower_color_minimum)
 myplant.TakePicture()
 myplant.ColorSpace()
 myplant.Set_Ranges_Manual()
-print(myplant.leaf_color_maximum, myplant.leaf_color_minimum, 
-      myplant.flower_color_maximum, myplant.flower_color_minimum)
+myplant.ID_Leaves()
+myplant.ID_Flowers()
+
 
 #print(myplant.does_plant_have_flowers)
