@@ -53,11 +53,11 @@ class PlantModel:
         norm.autoscale(pixel_colors)
         pixel_colors = norm(pixel_colors).tolist()
 
-        
         axis1.scatter(r.flatten(), g.flatten(), b.flatten(), facecolors=pixel_colors, marker=".")
         axis1.set_xlabel("Red")
         axis1.set_ylabel("Green")
         axis1.set_zlabel("Blue")
+        fig1.savefig("app\data\\view_4_photos\ColorSpace_RGB.png")
 
         #HSV Color Space 
         h, s, v = cv.split(hsv_img)
@@ -73,6 +73,7 @@ class PlantModel:
         axis2.set_xlabel("Hue")
         axis2.set_ylabel("Saturation")
         axis2.set_zlabel("Value")
+        fig2.savefig("app\data\\view_5_photos\ColorSpace_HSV.png")
 
         plt.show()
 
