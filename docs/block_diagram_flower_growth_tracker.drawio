@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-04-22T05:49:54.726Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="yrr-64bWp-4-mlWRftMC" version="21.1.2" type="device" pages="3">
+<mxfile host="Electron" modified="2023-04-22T06:03:04.106Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.1.2 Chrome/106.0.5249.199 Electron/21.4.3 Safari/537.36" etag="dz3J3aEFXetizYVZ0qQg" version="21.1.2" type="device" pages="3">
   <diagram name="System_Overview" id="W62WBc0dJXu3pJ372kPs">
-    <mxGraphModel dx="2145" dy="958" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2465" dy="1202" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -145,11 +145,14 @@
         <mxCell id="Y7-mlrsMqzR5W267q_G9-5" value="/data/view_3_photos" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#434445;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=left;outlineConnect=0;shape=mxgraph.vvd.folder;horizontal=1;fontSize=16;" parent="1" vertex="1">
           <mxGeometry x="-210" y="610" width="157.89" height="120" as="geometry" />
         </mxCell>
+        <mxCell id="LuB1hXhjsYv1q2qlf1Kx-1" value="view_1_photos: Updated by PlantModel.py&lt;br&gt;&lt;br&gt;view_2_photos: Updated by PlantModel.py&lt;br&gt;&lt;br&gt;view_3_photos: Updated by AruCoModel.py&lt;br&gt;&lt;br&gt;View.py will extract the photos" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fontColor=#000000;darkOpacity=0.05;fillColor=#FFF9B2;strokeColor=none;fillStyle=solid;direction=west;gradientDirection=north;gradientColor=#FFF2A1;shadow=1;size=20;pointerEvents=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="-450" y="280" width="190" height="210" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="RU4EUe5mBqhzKCZHCKLA" name="view_GUI">
-    <mxGraphModel dx="1941" dy="806" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2163" dy="976" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
