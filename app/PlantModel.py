@@ -95,10 +95,14 @@ class PlantModel:
         #self.leaf_color_minimum = np.array(map(int,leaf_min_str.split(',')))
         #self.flower_color_maximum = list(map(float,flower_max_str.split(',')))
         #self.flower_color_minimum = list(map(float,flower_min_str.split(',')))
-        self.leaf_color_maximum = (0,40,0)
+        '''self.leaf_color_maximum = (0,40,0)
         self.leaf_color_minimum = (50,200,255)
         self.flower_color_maximum = (70,40,0)
-        self.flower_color_minimum = (255,255,255)
+        self.flower_color_minimum = (255,255,255)'''
+        self.leaf_color_maximum = (0,150,0)
+        self.leaf_color_minimum = (90,255,255)
+        self.flower_color_maximum = (90,30,0)
+        self.flower_color_minimum = (175,150,255)
 
     def ID_Leaves(self): #This function reads the image in view_1_photos and Identify the plants leaves 
         img = cv.imread("app\data\\view_photos\Picture.png")
