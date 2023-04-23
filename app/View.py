@@ -69,6 +69,7 @@ class View(tk.Frame):
         label_4 = ttk.Label(master=frame_1, text="Flower level Bar: ", width=20)
         bar_1 = ttk.Progressbar(master=frame_1, orient="horizontal", length=100,mode="determinate", maximum=1, value=self.green_to_green_max_ratio )
         bar_2 = ttk.Progressbar(master=frame_1, orient="horizontal", length=100,mode="determinate", maximum=1, value=self.flower_to_leaf_ratio )
+        self.bar_3 = ttk.Progressbar(master=frame_1, orient="horizontal", length=100,mode="indeterminate")
 
         # Create widgets for photo view
         self.photo_1_title = "Original Photo"
@@ -93,12 +94,12 @@ class View(tk.Frame):
         frame_1.grid(row=0, column=0, padx=5, pady=5, sticky="nsew")
         frame_2.grid(row=0, column=1, padx=5, pady=5, sticky="nsew")
         frame_3.grid(row=0, column=2, padx=5, pady=5, sticky="nsew")
-        frame_4.grid(row=0, column=3, padx=5, pady=5, sticky="nsew")
+        # frame_4.grid(row=0, column=3, padx=5, pady=5, sticky="nsew")
 
         frame_5.grid(row=1, column=0, padx=5, pady=5, sticky="nsew")
         frame_6.grid(row=1, column=1, padx=5, pady=5, sticky="nsew")
         frame_7.grid(row=1, column=2, padx=5, pady=5, sticky="nsew")
-        frame_8.grid(row=1, column=3, padx=5, pady=5, sticky="nsew")
+        # frame_8.grid(row=1, column=3, padx=5, pady=5, sticky="nsew")
         
         # =========== Widget Layout =============#
         # layout the widgets in frame_1 (Button Interface)
@@ -109,6 +110,7 @@ class View(tk.Frame):
         label_4.grid(row=4,column=0, padx=5, pady=5, sticky="ew")
         bar_1.grid(row=3, column=1, padx=5, pady=5, sticky="e")
         bar_2.grid(row=4, column=1, padx=5, pady=5, sticky="e")
+        self.bar_3.grid(row=5, columnspan= 2, padx=5, pady=5, sticky="ew")
 
         # Layout widgets in the photo frames (photo view 1)
         self.photo_view_1.pack()
@@ -148,13 +150,13 @@ class View(tk.Frame):
             self.img_6 = ImageTk.PhotoImage(Image.open(self.photo_vew_6_dir).resize((300,225)))
             self.img_7 = ImageTk.PhotoImage(Image.open(self.photo_vew_7_dir).resize((300,225)))
 
-            self.photo_view_1.configure(image = self.img_1)
-            self.photo_view_2.configure(image = self.img_2)
-            self.photo_view_3.configure(image = self.img_3)
-            self.photo_view_4.configure(image = self.img_4)
-            self.photo_view_5.configure(image = self.img_5)
-            self.photo_view_6.configure(image = self.img_6)
-            self.photo_view_7.configure(image = self.img_7)
+            self.photo_view_1.configure(image=self.img_1)
+            self.photo_view_2.configure(image=self.img_2)
+            self.photo_view_3.configure(image=self.img_3)
+            self.photo_view_4.configure(image=self.img_4)
+            self.photo_view_5.configure(image=self.img_5)
+            self.photo_view_6.configure(image=self.img_6)
+            self.photo_view_7.configure(image=self.img_7)
 
 
             self.photo_view_1.update()
@@ -165,11 +167,14 @@ class View(tk.Frame):
             self.photo_view_6.update()
             self.photo_view_7.update()
 
+            self.bar_3.stop()
+
         self.after(ms=5000, func=self.Update_Photo_View)
     
     def Handle_button_1_press(self):
         """ Event handler when button 1 is pressed """
         self.button_pressed_flag = True
+        self.bar_3.start()
         print("BUTTON PRESSED")
 
 if __name__ == "__main__":

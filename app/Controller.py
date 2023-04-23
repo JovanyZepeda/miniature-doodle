@@ -14,7 +14,7 @@ root.title('Plant Health Tracker')
 
 # Go through each row and column of parent window and configure
 # Resize weight and minimum sizes
-for i in range(4):
+for i in range(3):
     root.columnconfigure(i, weight=1, minsize= 300)
 for i in range(2):
     root.columnconfigure(i, weight=1, minsize=300)
@@ -61,9 +61,9 @@ def model_thread():
                 myapp.button_pressed_flag=False # reset flag
                 myapp.can_update_photo_view=True # Allow view script access to database
         
-        # # Check if the myApp View object still exists
-        # if not myapp.winfo_exists():
-        #     break
+        # Check if the myApp View object still exists
+        if G_VIEW_CLOSED_FLAG == True:
+            break
 # ================= Execute Threads ================ #
 
 thread_setup = threading.Thread(target=model_thread)
