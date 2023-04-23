@@ -1,3 +1,8 @@
+
+# Ignore Photos
+app/data/view_photos/**
+app/data/training_photos/**
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
