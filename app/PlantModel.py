@@ -39,13 +39,13 @@ class PlantModel:
         result, img = cam.read()
         if result:
             cv.imshow("Display window", img)
-            cv.imwrite("app\data\\view_1_photos\Picture.png", img)
+            cv.imwrite("app\data\\view_photos\Picture.png", img)
             cv.waitKey(0)
         else:
             print("No Image Detected")
 
     def ColorSpace(self): #This functions plots the RGB and HVS color space of the image in view_4(5)_photos
-        img = cv.imread("app\data\\view_1_photos\Picture.png")
+        img = cv.imread("app\data\\view_photos\Picture.png")
         rgb_img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         hsv_img = cv.cvtColor(rgb_img, cv.COLOR_RGB2HSV)     
 
@@ -63,7 +63,7 @@ class PlantModel:
         axis1.set_xlabel("Red")
         axis1.set_ylabel("Green")
         axis1.set_zlabel("Blue")
-        fig1.savefig("app\data\\view_4_photos\ColorSpace_RGB.png")
+        fig1.savefig("app\data\\view_photos\ColorSpace_RGB.png")
 
         #HSV Color Space 
         h, s, v = cv.split(hsv_img)
@@ -79,7 +79,7 @@ class PlantModel:
         axis2.set_xlabel("Hue")
         axis2.set_ylabel("Saturation")
         axis2.set_zlabel("Value")
-        fig2.savefig("app\data\\view_5_photos\ColorSpace_HSV.png")
+        fig2.savefig("app\data\\view_photos\ColorSpace_HSV.png")
 
         #plt.show()
         plt.clf()
@@ -101,7 +101,7 @@ class PlantModel:
         self.flower_color_minimum = (255,255,255)
 
     def ID_Leaves(self): #This function reads the image in view_1_photos and Identify the plants leaves 
-        img = cv.imread("app\data\\view_1_photos\Picture.png")
+        img = cv.imread("app\data\\view_photos\Picture.png")
         rgb_img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         hsv_img = cv.cvtColor(rgb_img, cv.COLOR_RGB2HSV) 
         #new_img = np.zeros(img.shape, img.dtype)
@@ -116,7 +116,7 @@ class PlantModel:
         plt.clf()
         plt.close()
 
-        cv.imwrite("app\data\\view_2_photos\Leaves.png", cv.cvtColor(new_img, cv.COLOR_BGR2RGB))
+        cv.imwrite("app\data\\view_photos\Leaves.png", cv.cvtColor(new_img, cv.COLOR_BGR2RGB))
 
         """cv.imshow('Original Image', img)
         cv.imshow('New Image', new_img)
@@ -124,7 +124,7 @@ class PlantModel:
         cv.waitKey(0)"""
 
     def ID_Flowers(self): #This function read the image in view_1_photos and Identify the plants flowers
-        img = cv.imread("app\data\\view_1_photos\Picture.png")
+        img = cv.imread("app\data\\view_photos\Picture.png")
         rgb_img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
         hsv_img = cv.cvtColor(rgb_img, cv.COLOR_RGB2HSV) 
         #new_img = np.zeros(img.shape, img.dtype)
@@ -139,7 +139,7 @@ class PlantModel:
         plt.clf()
         plt.close()
 
-        cv.imwrite("app\data\\view_3_photos\Flowers.png", cv.cvtColor(new_img, cv.COLOR_BGR2RGB))
+        cv.imwrite("app\data\\view_photos\Flowers.png", cv.cvtColor(new_img, cv.COLOR_BGR2RGB))
 
 
 #Main script
