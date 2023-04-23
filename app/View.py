@@ -19,6 +19,7 @@ class View(tk.Frame):
     def __init__(self, parent):
         tk.Frame.__init__(self,parent)
         self.parent = parent # Parent Frame Object pass when constructor is used
+        
         #========== GUI Program ==========#
     
         self.Update_From_JSON()
@@ -78,13 +79,13 @@ class View(tk.Frame):
         photo_6_title = "Segmented Photo - Leaves Only - Color"
         photo_7_title = "Segmented Photo - Leaves Only - No Color"
 
-        photo_view_1 = ttk.Label(master=frame_2,image=self.img_1, text=photo_1_title, compound="bottom" , width=10 ,padding=3)
-        photo_view_2 = ttk.Label(master=frame_6,image=self.img_2, text=photo_2_title, compound="bottom" , width=10, padding=3)
-        photo_view_3 = ttk.Label(master=frame_5,image=self.img_3, text=photo_3_title, compound="bottom", width=10, padding=3)
-        photo_view_4 = ttk.Label(master=frame_3,image=self.img_4, text=photo_4_title, compound="bottom" , width=10 ,padding=3)
-        photo_view_5 = ttk.Label(master=frame_7,image=self.img_5, text=photo_5_title, compound="bottom" , width=10, padding=3)
-        photo_view_6 = ttk.Label(master=frame_4,image=self.img_6, text=photo_6_title, compound="bottom", width=10, padding=3)
-        photo_view_7 = ttk.Label(master=frame_8,image=self.img_7, text=photo_7_title, compound="bottom" , width=10 ,padding=3)
+        self.photo_view_1 = ttk.Label(master=frame_2,image=self.img_1, text=photo_1_title, compound="bottom" , width=10 ,padding=3)
+        self.photo_view_2 = ttk.Label(master=frame_6,image=self.img_2, text=photo_2_title, compound="bottom" , width=10, padding=3)
+        self.photo_view_3 = ttk.Label(master=frame_5,image=self.img_3, text=photo_3_title, compound="bottom", width=10, padding=3)
+        self.photo_view_4 = ttk.Label(master=frame_3,image=self.img_4, text=photo_4_title, compound="bottom" , width=10 ,padding=3)
+        self.photo_view_5 = ttk.Label(master=frame_7,image=self.img_5, text=photo_5_title, compound="bottom" , width=10, padding=3)
+        self.photo_view_6 = ttk.Label(master=frame_4,image=self.img_6, text=photo_6_title, compound="bottom", width=10, padding=3)
+        self.photo_view_7 = ttk.Label(master=frame_8,image=self.img_7, text=photo_7_title, compound="bottom" , width=10 ,padding=3)
 
         # ========== Frame Layout ============#
         # GRID of parent = 3 rows and 2 columns
@@ -110,13 +111,13 @@ class View(tk.Frame):
         bar_2.grid(row=4, column=1, padx=5, pady=5, sticky="e")
 
         # Layout widgets in the photo frames (photo view 1)
-        photo_view_1.pack()
-        photo_view_2.pack()
-        photo_view_3.pack()
-        photo_view_4.pack()
-        photo_view_5.pack()
-        photo_view_6.pack()
-        photo_view_7.pack()
+        self.photo_view_1.pack()
+        self.photo_view_2.pack()
+        self.photo_view_3.pack()
+        self.photo_view_4.pack()
+        self.photo_view_5.pack()
+        self.photo_view_6.pack()
+        self.photo_view_7.pack()
         
     def Update_From_JSON(self):
         """Helper Function to extract JSON Data"""
@@ -131,6 +132,16 @@ class View(tk.Frame):
             aruco_model_dict = json.load(json_file)
 
             self.plant_height = aruco_model_dict["plant_height"]
+
+    def Update_Photo_View(self):
+        """Call this to update photo views"""
+        self.photo_view_1.configure(image = self.img_1)
+        self.photo_view_2.configure(image = self.img_2)
+        self.photo_view_3.configure(image = self.img_3)
+        self.photo_view_4.configure(image = self.img_4)
+        self.photo_view_5.configure(image = self.img_5)
+        self.photo_view_6.configure(image = self.img_6)
+        self.photo_view_7.configure(image = self.img_7)
     
     def Handle_button_1_press(self):
         """ Event handler when button 1 is pressed """

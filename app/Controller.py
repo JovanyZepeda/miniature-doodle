@@ -45,6 +45,7 @@ def model_thread():
             if(myPlantModel.is_database_updated==True):
                 """ Command View to update """
                 myapp.Update_From_JSON()
+                myapp.Update_Photo_View()
 
                 myapp.button_pressed_flag=False # reset flag
 
