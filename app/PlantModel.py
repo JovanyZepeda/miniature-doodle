@@ -17,6 +17,7 @@ class PlantModel:
     flower_color_maximum = [0, 0, 0]
     does_plant_have_flowers = False 
     is_plant_healthy = False
+    is_database_updated = False
 
     def __init__(self,flower_to_leaf_ratio, green_to_green_max_ratio,
                      leaf_color_minimum, leaf_color_maximum,
@@ -34,7 +35,7 @@ class PlantModel:
         self.is_plant_healthy = is_plant_healthy
 
     def TakePicture(self): #This Function Take a Picture and stores the image in view_1_photos
-        cam_port = 0
+        cam_port = 1
         cam = cv.VideoCapture(cam_port)
         result, img = cam.read()
         if result:
@@ -145,14 +146,25 @@ class PlantModel:
 
         cv.imwrite("app\data\\view_photos\Flowers.png", cv.cvtColor(new_img, cv.COLOR_BGR2RGB))
 
+    def Update_DateBase(self):
+        """ Called by the controller to run necessary commands to update data """
+        self.TakePicture()
+        self.ColorSpace()
+        self.Set_Ranges_Manual()
+        self.ID_Leaves()
+        self.ID_Flowers()
 
-#Main script
-myplant = PlantModel(1,2,[0,0,0],[0,0,0],[0,0,0],[0,0,0],True,False)
-myplant.TakePicture()
-myplant.ColorSpace()
-myplant.Set_Ranges_Manual()
-myplant.ID_Leaves()
-myplant.ID_Flowers()
+        self.is_database_updated = True
+
+if __name__ == "__main__":
+
+    #Main script
+    myplant = PlantModel(1,2,[0,0,0],[0,0,0],[0,0,0],[0,0,0],True,False)
+    myplant.TakePicture()
+    myplant.ColorSpace()
+    myplant.Set_Ranges_Manual()
+    myplant.ID_Leaves()
+    myplant.ID_Flowers()
 
 
-#print(myplant.does_plant_have_flowers)
+    #print(myplant.does_plant_have_flowers)
