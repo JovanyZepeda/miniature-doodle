@@ -39,9 +39,9 @@ class PlantModel:
         cam = cv.VideoCapture(cam_port)
         result, img = cam.read()
         if result:
-            cv.imshow("Display window", img)
+            #cv.imshow("Display window", img)
             cv.imwrite("app\data\\view_photos\Picture.png", img)
-            cv.waitKey(0)
+            #cv.waitKey(0)
         else:
             print("No Image Detected")
 
@@ -117,7 +117,7 @@ class PlantModel:
         plt.subplot(1, 2, 2)
         plt.imshow(new_img)
 
-        plt.show()
+        #plt.show()
         plt.clf()
         plt.close()
 
@@ -140,7 +140,7 @@ class PlantModel:
         plt.subplot(1, 2, 2)
         plt.imshow(new_img)
 
-        plt.show()
+        #plt.show()
         plt.clf()
         plt.close()
 
