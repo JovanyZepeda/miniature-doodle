@@ -11,7 +11,7 @@ import json
 G_CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 G_PLANT_MODEL_FILE = os.path.join(G_CURRENT_DIR, "data", "plant_model_data.json")
 G_ARUCO_MODEL_FILE = os.path.join(G_CURRENT_DIR, "data", "plant_height_data.json")
-G_VIEW_PHOTO_DIR = os.path.join(G_CURRENT_DIR, "data", "view_photos")
+G_VIEW_PHOTO_DIR   = os.path.join(G_CURRENT_DIR, "data", "view_photos")
 
 class View(tk.Frame):
     """ View Module Class """
@@ -23,28 +23,28 @@ class View(tk.Frame):
         #========== GUI Program ==========#
     
         self.Update_From_JSON()
-        # self.bind(sequence="ButtonPress", func=self.Handle_button_1_press())
 
         self.button_pressed_flag = False
+        self.can_update_photo_view = False
 
         # =============== Photo Access ============#
         current_path = os.path.dirname(__file__)
-        photo_vew_1_dir = os.path.join(G_VIEW_PHOTO_DIR, "Picture.png" )
-        photo_vew_2_dir = os.path.join(G_VIEW_PHOTO_DIR, "Leaves.png")
-        photo_vew_3_dir = os.path.join(G_VIEW_PHOTO_DIR, "Flowers.png")
-        photo_vew_4_dir = os.path.join(G_VIEW_PHOTO_DIR,  "ColorSpace_RGB.png")
-        photo_vew_5_dir = os.path.join(G_VIEW_PHOTO_DIR,  "ColorSpace_HSV.png")
-        photo_vew_6_dir = os.path.join(G_VIEW_PHOTO_DIR, "Flowers.png")
-        photo_vew_7_dir = os.path.join(G_VIEW_PHOTO_DIR,  "Flowers.png")
+        self.photo_vew_1_dir = os.path.join(G_VIEW_PHOTO_DIR, "Picture.png" )
+        self.photo_vew_2_dir = os.path.join(G_VIEW_PHOTO_DIR, "ColorSpace_RGB.png")
+        self.photo_vew_3_dir = os.path.join(G_VIEW_PHOTO_DIR, "ColorSpace_HSV.png")
+        self.photo_vew_4_dir = os.path.join(G_VIEW_PHOTO_DIR,  "Flowers.png")
+        self.photo_vew_5_dir = os.path.join(G_VIEW_PHOTO_DIR,  "Leaves.png")
+        self.photo_vew_6_dir = os.path.join(G_VIEW_PHOTO_DIR, "Flowers.png")
+        self.photo_vew_7_dir = os.path.join(G_VIEW_PHOTO_DIR,  "Flowers.png")
         
         # Store a reference to th image
-        self.img_1 = ImageTk.PhotoImage(Image.open(photo_vew_1_dir).resize((300,225)))
-        self.img_2 = ImageTk.PhotoImage(Image.open(photo_vew_2_dir).resize((300,225)))
-        self.img_3 = ImageTk.PhotoImage(Image.open(photo_vew_3_dir).resize((300,225)))
-        self.img_4 = ImageTk.PhotoImage(Image.open(photo_vew_4_dir).resize((300,225)))
-        self.img_5 = ImageTk.PhotoImage(Image.open(photo_vew_5_dir).resize((300,225)))
-        self.img_6 = ImageTk.PhotoImage(Image.open(photo_vew_6_dir).resize((300,225)))
-        self.img_7 = ImageTk.PhotoImage(Image.open(photo_vew_7_dir).resize((300,225)))
+        self.img_1 = ImageTk.PhotoImage(Image.open(self.photo_vew_1_dir).resize((300,225)))
+        self.img_2 = ImageTk.PhotoImage(Image.open(self.photo_vew_2_dir).resize((300,225)))
+        self.img_3 = ImageTk.PhotoImage(Image.open(self.photo_vew_3_dir).resize((300,225)))
+        self.img_4 = ImageTk.PhotoImage(Image.open(self.photo_vew_4_dir).resize((300,225)))
+        self.img_5 = ImageTk.PhotoImage(Image.open(self.photo_vew_5_dir).resize((300,225)))
+        self.img_6 = ImageTk.PhotoImage(Image.open(self.photo_vew_6_dir).resize((300,225)))
+        self.img_7 = ImageTk.PhotoImage(Image.open(self.photo_vew_7_dir).resize((300,225)))
 
         test_str = "TEST"
         # Define a sytle object that is applied globally
@@ -71,21 +71,21 @@ class View(tk.Frame):
         bar_2 = ttk.Progressbar(master=frame_1, orient="horizontal", length=100,mode="determinate", maximum=1, value=self.flower_to_leaf_ratio )
 
         # Create widgets for photo view
-        photo_1_title = "Original Photo"
-        photo_2_title = "RGB Scatter Plot"
-        photo_3_title = "HSV Scatter Plot"
-        photo_4_title = "Segmented Photo - Flower Only - Color"
-        photo_5_title = "Segmented Photo - Flower Only - no Color"
-        photo_6_title = "Segmented Photo - Leaves Only - Color"
-        photo_7_title = "Segmented Photo - Leaves Only - No Color"
+        self.photo_1_title = "Original Photo"
+        self.photo_2_title = "RGB Scatter Plot"
+        self.photo_3_title = "HSV Scatter Plot"
+        self.photo_4_title = "Segmented Photo - Flower Only - Color"
+        self.photo_5_title = "Segmented Photo - Flower Only - no Color"
+        self.photo_6_title = "Segmented Photo - Leaves Only - Color"
+        self.photo_7_title = "Segmented Photo - Leaves Only - No Color"
 
-        self.photo_view_1 = ttk.Label(master=frame_2,image=self.img_1, text=photo_1_title, compound="bottom" , width=10 ,padding=3)
-        self.photo_view_2 = ttk.Label(master=frame_6,image=self.img_2, text=photo_2_title, compound="bottom" , width=10, padding=3)
-        self.photo_view_3 = ttk.Label(master=frame_5,image=self.img_3, text=photo_3_title, compound="bottom", width=10, padding=3)
-        self.photo_view_4 = ttk.Label(master=frame_3,image=self.img_4, text=photo_4_title, compound="bottom" , width=10 ,padding=3)
-        self.photo_view_5 = ttk.Label(master=frame_7,image=self.img_5, text=photo_5_title, compound="bottom" , width=10, padding=3)
-        self.photo_view_6 = ttk.Label(master=frame_4,image=self.img_6, text=photo_6_title, compound="bottom", width=10, padding=3)
-        self.photo_view_7 = ttk.Label(master=frame_8,image=self.img_7, text=photo_7_title, compound="bottom" , width=10 ,padding=3)
+        self.photo_view_1 = ttk.Label(master=frame_2,image=self.img_1, text=self.photo_1_title, compound="bottom" , width=10 ,padding=3)
+        self.photo_view_2 = ttk.Label(master=frame_6,image=self.img_2, text=self.photo_2_title, compound="bottom" , width=10, padding=3)
+        self.photo_view_3 = ttk.Label(master=frame_5,image=self.img_3, text=self.photo_3_title, compound="bottom", width=10, padding=3)
+        self.photo_view_4 = ttk.Label(master=frame_3,image=self.img_4, text=self.photo_4_title, compound="bottom" , width=10 ,padding=3)
+        self.photo_view_5 = ttk.Label(master=frame_7,image=self.img_5, text=self.photo_5_title, compound="bottom" , width=10, padding=3)
+        self.photo_view_6 = ttk.Label(master=frame_4,image=self.img_6, text=self.photo_6_title, compound="bottom", width=10, padding=3)
+        self.photo_view_7 = ttk.Label(master=frame_8,image=self.img_7, text=self.photo_7_title, compound="bottom" , width=10 ,padding=3)
 
         # ========== Frame Layout ============#
         # GRID of parent = 3 rows and 2 columns
@@ -135,13 +135,37 @@ class View(tk.Frame):
 
     def Update_Photo_View(self):
         """Call this to update photo views"""
-        self.photo_view_1.configure(image = self.img_1)
-        self.photo_view_2.configure(image = self.img_2)
-        self.photo_view_3.configure(image = self.img_3)
-        self.photo_view_4.configure(image = self.img_4)
-        self.photo_view_5.configure(image = self.img_5)
-        self.photo_view_6.configure(image = self.img_6)
-        self.photo_view_7.configure(image = self.img_7)
+        print("Updating Photo View")
+
+        if(self.can_update_photo_view==True):
+
+            # Store a reference to th image 
+            self.img_1 = ImageTk.PhotoImage(Image.open(self.photo_vew_1_dir).resize((300,225)))
+            self.img_2 = ImageTk.PhotoImage(Image.open(self.photo_vew_2_dir).resize((300,225)))
+            self.img_3 = ImageTk.PhotoImage(Image.open(self.photo_vew_3_dir).resize((300,225)))
+            self.img_4 = ImageTk.PhotoImage(Image.open(self.photo_vew_4_dir).resize((300,225)))
+            self.img_5 = ImageTk.PhotoImage(Image.open(self.photo_vew_5_dir).resize((300,225)))
+            self.img_6 = ImageTk.PhotoImage(Image.open(self.photo_vew_6_dir).resize((300,225)))
+            self.img_7 = ImageTk.PhotoImage(Image.open(self.photo_vew_7_dir).resize((300,225)))
+
+            self.photo_view_1.configure(image = self.img_1)
+            self.photo_view_2.configure(image = self.img_2)
+            self.photo_view_3.configure(image = self.img_3)
+            self.photo_view_4.configure(image = self.img_4)
+            self.photo_view_5.configure(image = self.img_5)
+            self.photo_view_6.configure(image = self.img_6)
+            self.photo_view_7.configure(image = self.img_7)
+
+
+            self.photo_view_1.update()
+            self.photo_view_2.update()
+            self.photo_view_3.update()
+            self.photo_view_4.update()
+            self.photo_view_5.update()
+            self.photo_view_6.update()
+            self.photo_view_7.update()
+
+        self.after(ms=5000, func=self.Update_Photo_View)
     
     def Handle_button_1_press(self):
         """ Event handler when button 1 is pressed """

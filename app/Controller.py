@@ -7,10 +7,10 @@ import threading
 import time
 
 # ================ View Script Setup ================= # 
+G_VIEW_CLOSED_FLAG = False
 
 root = tk.Tk() # Create the toplevel parent window
 root.title('Plant Health Tracker')
-# root.geometry('{}x{}'.format(1000, 600))
 
 # Go through each row and column of parent window and configure
 # Resize weight and minimum sizes
@@ -18,6 +18,16 @@ for i in range(4):
     root.columnconfigure(i, weight=1, minsize= 300)
 for i in range(2):
     root.columnconfigure(i, weight=1, minsize=300)
+
+def on_quit():
+    """Call this function when window is closed"""
+    print("View window has been closed")
+    global G_VIEW_CLOSED_FLAG
+    root.destroy()
+    G_VIEW_CLOSED_FLAG = True
+    
+
+root.protocol("WM_DELETE_WINDOW", on_quit)
 
 myapp = View.View(root)
 
@@ -27,15 +37,16 @@ myPlantModel = PM.PlantModel(1,2,[0,0,0],[0,0,0],[0,0,0],[0,0,0],True,False)
 # ================= Threading Setup ================= #
 def model_thread():
     """ Thread to handle Model Script Execution """
-    while(1):
+    while(myapp.winfo_exists()):
         """ System Logic"""
         time.sleep(1) # Sleep to save resources
         print("Thread loop")
         if(myapp.button_pressed_flag==True):
             """ Update Data from View"""
-            print("THREAD: Button Preassed")
-
+            print("THREAD: Button Pressed")
+            myapp.can_update_photo_view=False # prevent myApp from accessing database
             myPlantModel.is_database_updated=False
+
             while(myPlantModel.is_database_updated==False):
                 print("THREAD: MODEL SCRIPT")
                 myPlantModel.Update_DateBase()
@@ -44,17 +55,22 @@ def model_thread():
 
             if(myPlantModel.is_database_updated==True):
                 """ Command View to update """
+                print("THREAD: Update from JSON and Update PhotoView")
                 myapp.Update_From_JSON()
-                myapp.Update_Photo_View()
 
                 myapp.button_pressed_flag=False # reset flag
-
+                myapp.can_update_photo_view=True # Allow view script access to database
+        
+        # # Check if the myApp View object still exists
+        # if not myapp.winfo_exists():
+        #     break
 # ================= Execute Threads ================ #
 
 thread_setup = threading.Thread(target=model_thread)
 thread_setup.start()
 
-myapp.mainloop()    
+myapp.after(ms=5000, func=myapp.Update_Photo_View)
 
-print("TEST")
+myapp.mainloop()    
+print("END")
 
