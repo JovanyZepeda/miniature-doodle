@@ -2,6 +2,13 @@ Plant Growth Tracker
 ========================
 The goal is to use computer vision to classify plants and/or determine plant heath based on the plants colors and 2D features. 
 ---------------
+# Dependencies
+- Python 3.11.X
+- opencv
+- tkinter
+# Execution Instruction
+Ensure you have the depencines and run the following script
+`\app\controller.py`
 
 # System Overview
 The chosen system design is the MVC or Model-View-Controller
